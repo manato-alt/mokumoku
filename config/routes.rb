@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resource :avatar, only: %i[destroy], module: :profiles
     end
     resource :password_change, only: %i[show update]
+    resources :outher_profiles, only: %i[show]
   end
 
   namespace :api, defaults: { format: :json } do
