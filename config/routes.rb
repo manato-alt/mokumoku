@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create] do
+    resource :relationships, only: [:create, :destroy]
+  end
   resources :events do
     collection do
       get :future
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
       resource :avatar, only: %i[destroy], module: :profiles
     end
     resource :password_change, only: %i[show update]
+    resources :outher_profiles, only: %i[show]
   end
 
   namespace :api, defaults: { format: :json } do
